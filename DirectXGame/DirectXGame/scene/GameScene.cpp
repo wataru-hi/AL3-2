@@ -38,6 +38,7 @@ void GameScene::Initialize() {
 
 	// 3Dモデルの生成
 	modelPlayer_ = Model::CreateFromOBJ("player");
+	modelEnemy_ = Model::CreateFromOBJ("enemy");
 	modelBlock_ = Model::CreateFromOBJ("block");
 	modelSkydome_ = Model::CreateFromOBJ("SkyDome", true);
 
@@ -56,7 +57,7 @@ void GameScene::Initialize() {
 	enemy_ = new Enemy();
 	//初期化
 	Vector3 enemyPosition = mapChipField_->GetMapChipPositionByIndex(10, 18);
-	enemy_->Initialize(modelPlayer_, &viewProjection_, enemyPosition);
+	enemy_->Initialize(modelEnemy_, &viewProjection_, enemyPosition);
 
 	viewProjection_.Initialize();
 

@@ -63,6 +63,7 @@ private: // メンバ変数
 	Enemy* enemy_ = nullptr;
 	// モデルデータ
 	Model* modelPlayer_ = nullptr;
+	Model* modelEnemy_ = nullptr;
 	Model* modelBlock_ = nullptr;
 	Model* modelSkydome_ = nullptr;
 	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
