@@ -56,3 +56,5 @@ float EaseOut(float x1, float x2, float t);
 float EaseInOut(float x1, float x2, float t);
 
 Vector3 Lerp(const Vector3& v1, const Vector3& v2, float t);
+
+float conversionRandian(float angle);

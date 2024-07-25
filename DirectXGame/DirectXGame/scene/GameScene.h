@@ -8,6 +8,7 @@
 #include "MapChipField.h"
 #include "Model.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
@@ -58,6 +59,8 @@ private: // メンバ変数
 	uint32_t textureHandle_ = 0u;
 	// 自キャラ
 	Player* player_ = nullptr;
+	//敵キャラ
+	Enemy* enemy_ = nullptr;
 	// モデルデータ
 	Model* modelPlayer_ = nullptr;
 	Model* modelBlock_ = nullptr;

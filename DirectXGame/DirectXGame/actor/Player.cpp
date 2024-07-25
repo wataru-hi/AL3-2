@@ -9,7 +9,8 @@
 #include <cassert>
 #include <numbers>
 
-void Player::Initialize(Model* model, ViewProjection* viewProjection, const Vector3& position) {
+void Player::Initialize(Model* model, ViewProjection* viewProjection, const Vector3& position) 
+{
 
 	// NULLポインタチェック
 	assert(model);

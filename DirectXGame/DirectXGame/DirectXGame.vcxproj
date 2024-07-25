@@ -109,6 +109,7 @@
     <ClCompile Include="2d\ImGuiManager.cpp" />
     <ClCompile Include="3d\WorldTransformEx.cpp" />
     <ClCompile Include="actor\CameraController.cpp" />
+    <ClCompile Include="actor\Enemy.cpp" />
     <ClCompile Include="actor\Player.cpp" />
     <ClCompile Include="base\DirectXCommon.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="3d\ViewProjection.h" />
     <ClInclude Include="3d\WorldTransform.h" />
     <ClInclude Include="actor\CameraController.h" />
+    <ClInclude Include="actor\Enemy.h" />
     <ClInclude Include="actor\Player.h" />
     <ClInclude Include="audio\Audio.h" />
     <ClInclude Include="base\DirectXCommon.h" />

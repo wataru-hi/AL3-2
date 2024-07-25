@@ -1,21 +1,4 @@
-﻿  compilation object save succeeded; see C:\Users\K023g\OneDrive\デスクトップ\AL3-2\DirectXGame\Generated\Outputs\Debug\TerrainPS.cso
-  compilation object save succeeded; see C:\Users\K023g\OneDrive\デスクトップ\AL3-2\DirectXGame\Generated\Outputs\Debug\TerrainVS.cso
-  compilation object save succeeded; see C:\Users\K023g\OneDrive\デスクトップ\AL3-2\DirectXGame\Generated\Outputs\Debug\ObjPS.cso
-  compilation object save succeeded; see C:\Users\K023g\OneDrive\デスクトップ\AL3-2\DirectXGame\Generated\Outputs\Debug\ObjVS.cso
-  compilation object save succeeded; see C:\Users\K023g\OneDrive\デスクトップ\AL3-2\DirectXGame\Generated\Outputs\Debug\PrimitivePS.cso
-  compilation object save succeeded; see C:\Users\K023g\OneDrive\デスクトップ\AL3-2\DirectXGame\Generated\Outputs\Debug\PrimitiveVS.cso
-  compilation object save succeeded; see C:\Users\K023g\OneDrive\デスクトップ\AL3-2\DirectXGame\Generated\Outputs\Debug\ShapePS.cso
-  compilation object save succeeded; see C:\Users\K023g\OneDrive\デスクトップ\AL3-2\DirectXGame\Generated\Outputs\Debug\ShapeVS.cso
-  compilation object save succeeded; see C:\Users\K023g\OneDrive\デスクトップ\AL3-2\DirectXGame\Generated\Outputs\Debug\SpritePS.cso
-  compilation object save succeeded; see C:\Users\K023g\OneDrive\デスクトップ\AL3-2\DirectXGame\Generated\Outputs\Debug\SpriteVS.cso
-  ImGuiManager.cpp
-  WorldTransformEx.cpp
-  CameraController.cpp
-  Player.cpp
-  DirectXCommon.cpp
-  WinApp.cpp
+﻿  Enemy.cpp
   main.cpp
-  MathUtilityForText.cpp
-  MapChipField.cpp
   GameScene.cpp
   DirectXGame.vcxproj -> C:\Users\K023g\OneDrive\デスクトップ\AL3-2\DirectXGame\Generated\Outputs\Debug\DirectXGame.exe
