@@ -7,6 +7,7 @@
 
 #include "Matrix4x4.h"
 #include "Vector3.h"
+#include "AABB.h"
 
 // 円周率
 const float PI = 3.141592654f;
@@ -58,3 +59,7 @@ float EaseInOut(float x1, float x2, float t);
 Vector3 Lerp(const Vector3& v1, const Vector3& v2, float t);
 
 float conversionRandian(float angle);
+
+bool IsCollision(AABB aabb1, AABB aabb2);
+
+Vector3 GetWorldPosition(const Matrix4x4 a);

@@ -60,7 +60,7 @@ private: // メンバ変数
 	// 自キャラ
 	Player* player_ = nullptr;
 	//敵キャラ
-	Enemy* enemy_ = nullptr;
+	std::list<Enemy*> enemies_;
 	// モデルデータ
 	Model* modelPlayer_ = nullptr;
 	Model* modelEnemy_ = nullptr;
@@ -76,4 +76,5 @@ private: // メンバ変数
 	CameraController* cameraController = nullptr;
 
 	void GenerateBlocks();
+	void CheckAllCollisions();
 };

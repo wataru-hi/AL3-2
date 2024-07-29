@@ -178,3 +178,35 @@ float conversionRandian(float angle)
 	float randianAngle = angle * (PI / 180.0f);
 	return randianAngle;
 }
+
+bool IsCollision(AABB aabb1, AABB aabb2)
+{
+    if (aabb1.min.x <= aabb2.max.x && aabb1.max.x >= aabb2.min.x) {
+        return true;
+    }
+
+    if (aabb1.min.y <= aabb2.max.y && aabb1.max.y >= aabb2.min.y) {
+        return true;
+    }
+
+    if (aabb1.min.z <= aabb2.max.z && aabb1.max.z >= aabb2.min.z) {
+        return true;
+    }
+
+    return false;
+}
+
+Vector3 GetWorldPosition(const Matrix4x4 a)
+{
+	//ワールド座標を入れる変数
+	Vector3 worldPos;
+
+	//ワールド行列の平行移動成分を取得
+
+	worldPos.x = a.m[3][0];
+	worldPos.y = a.m[3][1];
+	worldPos.z = a.m[3][2];
+
+	return worldPos;
+}
+

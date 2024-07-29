@@ -206,6 +206,9 @@
     <ClInclude Include="actor\Enemy.h">
       <Filter>ヘッダー ファイル\actor</Filter>
     </ClInclude>
+    <ClInclude Include="AABB.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\SpritePS.hlsl">

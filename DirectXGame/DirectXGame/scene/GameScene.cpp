@@ -9,7 +9,14 @@ GameScene::GameScene() {}
 GameScene::~GameScene() {
 
 	delete player_;
-	delete enemy_;
+
+	for (Enemy* enemy : enemies_)
+	{
+		delete enemy;
+	}
+	// enemies_ をクリア
+	enemies_.clear();
+
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 		for (WorldTransform*& worldTransformBlock : worldTransformBlockLine) {
 			delete worldTransformBlock;
@@ -53,11 +60,20 @@ void GameScene::Initialize() {
 	player_->Initialize(modelPlayer_, &viewProjection_, playerPosition);
 	player_->SetMapChipField(mapChipField_);
 
-	//敵キャラの生成
-	enemy_ = new Enemy();
-	//初期化
-	Vector3 enemyPosition = mapChipField_->GetMapChipPositionByIndex(10, 18);
-	enemy_->Initialize(modelEnemy_, &viewProjection_, enemyPosition);
+	////敵キャラの生成(一体のみ
+	//enemy_ = new Enemy();
+	////初期化
+	//Vector3 enemyPosition = mapChipField_->GetMapChipPositionByIndex(10, 18);
+	//enemy_->Initialize(modelEnemy_, &viewProjection_, enemyPosition);
+
+	for (int32_t i = 0; i < 4; ++i)
+	{
+		Enemy* newEnemy = new Enemy();
+		Vector3 enemyPosition = mapChipField_->GetMapChipPositionByIndex(12 + i, 16);
+		newEnemy->Initialize(modelEnemy_, &viewProjection_, enemyPosition);
+
+		enemies_.push_back(newEnemy);
+	}
 
 	viewProjection_.Initialize();
 
@@ -85,12 +101,15 @@ void GameScene::Update() {
 	// 自キャラの更新
 	player_->Update();
 
-	if (enemy_ != nullptr)
+	for (Enemy* enemy : enemies_)
 	{
-		enemy_->Update();
+		enemy->Update();
 	}
 
 	cameraController->Update();
+
+	//すべての当たり判定を行う
+	CheckAllCollisions();
 
 #ifdef _DEBUG
 	if (input_->TriggerKey(DIK_0)) {
@@ -161,9 +180,9 @@ void GameScene::Draw() {
 	// 自キャラの描画
 	player_->Draw();
 
-	if (enemy_ != nullptr)
+	for (Enemy* enemy : enemies_)
 	{
-		enemy_->Draw();
+		enemy->Draw();
 	}
 
 	// 3Dオブジェクト描画後処理
@@ -207,4 +226,28 @@ void GameScene::GenerateBlocks() {
 			}
 		}
 	}
+}
+
+void GameScene::CheckAllCollisions()
+{
+	#pragma region
+
+	AABB aabb1, aabb2;
+
+	aabb1 = player_->getAABB();
+	
+	for(Enemy* enemy : enemies_)
+	{
+		aabb2 = enemy->getAABB();
+
+		if (IsCollision(aabb1, aabb2) == true)
+		{
+			player_->OnCollision(enemy);
+
+			enemy->OnCollision(player_);
+		}
+	}
+
+	#pragma endregion
+	
 }

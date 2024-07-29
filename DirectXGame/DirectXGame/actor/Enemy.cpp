@@ -39,3 +39,19 @@ void Enemy::Draw()
 {
 	 model_->Draw(worldTransform_, *viewProjection_);
 }
+
+void Enemy::OnCollision(const Player* player)
+{
+	(void)player;
+}
+
+AABB Enemy::getAABB()
+{
+	Vector3 worldPos  = GetWorldPosition(worldTransform_.matWorld_);
+
+	AABB aabb;
+
+	aabb.min = {worldPos.x - kWidth / 2.0f, worldPos.y - kHeight / 2.0f, worldPos.z - kWidth / 2.0f};
+	aabb.max = {worldPos.x + kWidth / 2.0f, worldPos.y + kHeight / 2.0f, worldPos.z + kWidth / 2.0f};
+	return aabb;
+}

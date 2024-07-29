@@ -2,6 +2,10 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
+#include "AABB.h"
+
+class Player;
+
 /// <summary>
 /// 敵
 /// </summary>
@@ -12,11 +16,17 @@ public:
 	void Update();
 	void Draw();
 
+	void OnCollision(const Player* player);
+
+	AABB getAABB();
+
 private:
 	static inline const float kWalkSpeed = 0.01f; //歩行の速さ
 	static inline const float kWalkMotionAngelStart = 25.0f; //最初の角度[度]
 	static inline const float kWalkMotionAngelend = 35.0f; //最後の角度[度]
 	static inline const float kWalkMotionTime = 1.0f; //アニメーション周期時間[秒]
+	static inline const float kWidth = 0.8f;
+	static inline const float kHeight = 0.8f;
 
 	Model* model_ = nullptr;
 	WorldTransform worldTransform_;

@@ -38,6 +38,8 @@ void Player::Update() {
 	// マップ衝突チェック
 	CheckMapCollision(collisionMapInfo);
 
+
+
 	// 移動
 	worldTransform_.translation_ += collisionMapInfo.move;
 
@@ -62,6 +64,24 @@ void Player::Update() {
 }
 
 void Player::Draw() { model_->Draw(worldTransform_, *viewProjection_); }
+
+void Player::OnCollision(const Enemy* enemy)
+{
+	(void)enemy;
+
+	velocity_ += {0.0f, 1.0f, 0.0f};
+}
+
+AABB Player::getAABB()
+{
+	Vector3 worldPos  = GetWorldPosition(worldTransform_.matWorld_);
+
+	AABB aabb;
+
+	aabb.min = {worldPos.x - kWidth / 2.0f, worldPos.y - kHeight / 2.0f, worldPos.z - kWidth / 2.0f};
+	aabb.max = {worldPos.x + kWidth / 2.0f, worldPos.y + kHeight / 2.0f, worldPos.z + kWidth / 2.0f};
+	return aabb;
+}
 
 void Player::InputMove() {
 	if (onGround_) {

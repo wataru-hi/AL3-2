@@ -4,7 +4,10 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
+#include "AABB.h"
+
 class MapChipField;
+class Enemy;
 
 /// <summary>
 /// 自キャラ
@@ -40,10 +43,12 @@ public:
 
 	// setter
 	void SetMapChipField(MapChipField* mapChipField) { mapChipField_ = mapChipField; }
+	void OnCollision(const Enemy* enemy);
 
 	// getter
 	const WorldTransform& GetWorldTransform() const { return worldTransform_; }
 	const Vector3& GetVelocity() const { return velocity_; }
+	AABB getAABB();
 
 private:
 	static inline const float kAcceleration = 0.1f;
