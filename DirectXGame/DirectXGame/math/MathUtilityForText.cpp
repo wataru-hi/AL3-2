@@ -182,15 +182,12 @@ float conversionRandian(float angle)
 bool IsCollision(AABB aabb1, AABB aabb2)
 {
     if (aabb1.min.x <= aabb2.max.x && aabb1.max.x >= aabb2.min.x) {
-        return true;
-    }
+		if (aabb1.min.y <= aabb2.max.y && aabb1.max.y >= aabb2.min.y) {
+			if (aabb1.min.z <= aabb2.max.z && aabb1.max.z >= aabb2.min.z) {
+				 return true;
+			}
 
-    if (aabb1.min.y <= aabb2.max.y && aabb1.max.y >= aabb2.min.y) {
-        return true;
-    }
-
-    if (aabb1.min.z <= aabb2.max.z && aabb1.max.z >= aabb2.min.z) {
-        return true;
+		}
     }
 
     return false;

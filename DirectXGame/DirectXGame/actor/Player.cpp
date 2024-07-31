@@ -38,8 +38,6 @@ void Player::Update() {
 	// マップ衝突チェック
 	CheckMapCollision(collisionMapInfo);
 
-
-
 	// 移動
 	worldTransform_.translation_ += collisionMapInfo.move;
 

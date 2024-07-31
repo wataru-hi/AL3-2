@@ -106,8 +106,6 @@ void GameScene::Update() {
 		enemy->Update();
 	}
 
-	cameraController->Update();
-
 	//すべての当たり判定を行う
 	CheckAllCollisions();
 
@@ -138,6 +136,8 @@ void GameScene::Update() {
 			worldTransformBlock->UpdateMatrix();
 		}
 	}
+
+	cameraController->Update();
 }
 
 void GameScene::Draw() {
@@ -230,24 +230,24 @@ void GameScene::GenerateBlocks() {
 
 void GameScene::CheckAllCollisions()
 {
-	#pragma region
-
-	AABB aabb1, aabb2;
-
-	aabb1 = player_->getAABB();
-	
-	for(Enemy* enemy : enemies_)
+	#pragma region プレイヤーと敵の当たり判定
 	{
-		aabb2 = enemy->getAABB();
+		AABB aabb1, aabb2;
 
-		if (IsCollision(aabb1, aabb2) == true)
+		aabb1 = player_->getAABB();
+	
+		for(Enemy* enemy : enemies_)
 		{
-			player_->OnCollision(enemy);
+			aabb2 = enemy->getAABB();
 
-			enemy->OnCollision(player_);
+			if (IsCollision(aabb1, aabb2))
+			{
+				player_->OnCollision(enemy);
+
+				enemy->OnCollision(player_);
+			}
 		}
 	}
-
 	#pragma endregion
 	
 }
