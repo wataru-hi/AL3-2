@@ -1,6 +1,7 @@
 #include "DeathParticles.h"
 #include <cassert>
 #include <MathUtilityForText.h>
+#include <algorithm>
 
 void DeathParticles::Initialize(Model* model, ViewProjection* viewProjection, const Vector3& position)
 {
@@ -17,6 +18,9 @@ void DeathParticles::Initialize(Model* model, ViewProjection* viewProjection, co
 		worldTransform.translation_ = position;
 	}
 	viewProjection_ = viewProjection;
+
+	objectColor_.Initialize();
+	color_ = {1, 1, 1, 1};
 }
 
 void DeathParticles::Update()
@@ -48,6 +52,10 @@ void DeathParticles::Update()
 		worldTransforms_[i].translation_ += velocity;
 	}
 
+	color_.w = std::clamp(Lerp(color_.w, 0.01f, counter_), 0.0f, 1.0f);
+	objectColor_.SetColor(color_);
+	objectColor_.TransferMatrix();
+
 	for (auto& worldTransform : worldTransforms_)
 	{
 		worldTransform.UpdateMatrix();
@@ -63,6 +71,6 @@ void DeathParticles::Draw()
 
 	for (auto& worldTransform : worldTransforms_)
 	{
-		model_->Draw(worldTransform, *viewProjection_);
+		model_->Draw(worldTransform, *viewProjection_, &objectColor_);
 	}
 }

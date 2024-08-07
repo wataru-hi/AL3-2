@@ -31,5 +31,6 @@ private:
 	std::array<WorldTransform, kNumParticles> worldTransforms_;
 	bool isFinished_ = false;
 	float counter_ = 0.0f;
+	ObjectColor objectColor_;
+	Vector4 color_;
 };
-
