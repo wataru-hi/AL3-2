@@ -207,3 +207,14 @@ Vector3 GetWorldPosition(const Matrix4x4 a)
 	return worldPos;
 }
 
+Vector3 Transform(const Vector3& inputVector, const Matrix4x4& rotationMatrix)
+{
+    // ベクトルを回転行列で変換する
+    Vector3 resultVector;
+    resultVector.x = rotationMatrix.m[0][0] * inputVector.x + rotationMatrix.m[1][0] * inputVector.y + rotationMatrix.m[2][0] * inputVector.z;
+    resultVector.y = rotationMatrix.m[0][1] * inputVector.x + rotationMatrix.m[1][1] * inputVector.y + rotationMatrix.m[2][1] * inputVector.z;
+    resultVector.z = rotationMatrix.m[0][2] * inputVector.x + rotationMatrix.m[1][2] * inputVector.y + rotationMatrix.m[2][2] * inputVector.z;
+
+    return resultVector;
+}
+

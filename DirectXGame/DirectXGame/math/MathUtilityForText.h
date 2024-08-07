@@ -63,3 +63,5 @@ float conversionRandian(float angle);
 bool IsCollision(AABB aabb1, AABB aabb2);
 
 Vector3 GetWorldPosition(const Matrix4x4 a);
+
+Vector3 Transform(const Vector3& inputVector, const Matrix4x4& rotationMatrix);

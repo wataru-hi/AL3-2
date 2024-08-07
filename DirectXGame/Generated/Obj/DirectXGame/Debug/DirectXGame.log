@@ -1,9 +1,4 @@
-﻿  WorldTransformEx.cpp
-  CameraController.cpp
-  Enemy.cpp
-  Player.cpp
+﻿  DeathParticles.cpp
   main.cpp
-  MathUtilityForText.cpp
   GameScene.cpp
-  LINK : 前回のインクリメンタル リンクで C:\Users\K023g\OneDrive\デスクトップ\AL3-2\DirectXGame\DirectXGame\..\Generated\Outputs\Debug\DirectXGame.exe が見つからなかったか、ビルドされませんでした。フル リンクを行います。
   DirectXGame.vcxproj -> C:\Users\K023g\OneDrive\デスクトップ\AL3-2\DirectXGame\Generated\Outputs\Debug\DirectXGame.exe
