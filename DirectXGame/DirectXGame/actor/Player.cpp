@@ -68,6 +68,7 @@ void Player::OnCollision(const Enemy* enemy)
 	(void)enemy;
 
 	velocity_ += {0.0f, 1.0f, 0.0f};
+	isDead_ = true;
 }
 
 AABB Player::getAABB()

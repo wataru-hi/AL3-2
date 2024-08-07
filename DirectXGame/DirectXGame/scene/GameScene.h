@@ -15,6 +15,12 @@
 #include "WorldTransform.h"
 #include <vector>
 
+enum class Phase 
+{
+	kPlay,	//ゲームプレイ
+	kDeath,	//デス演出
+};
+
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -45,6 +51,9 @@ public: // メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw();
+
+//getter
+	bool isFinished() const { return finished; }
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -77,8 +86,10 @@ private: // メンバ変数
 	MapChipField* mapChipField_;
 	CameraController* cameraController = nullptr;
 	DeathParticles* deathparticles_ = nullptr;
-
+	Phase phase_;
+	bool finished = false;
 
 	void GenerateBlocks();
 	void CheckAllCollisions();
+	void ChangePhase();
 };

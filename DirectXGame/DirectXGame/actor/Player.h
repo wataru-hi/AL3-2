@@ -50,6 +50,7 @@ public:
 	const Vector3& GetVelocity() const { return velocity_; }
 	const Vector3& GetPosition() const { return worldTransform_.translation_; }
 	AABB getAABB();
+	bool IsDead() const { return isDead_; }
 
 private:
 	static inline const float kAcceleration = 0.1f;
@@ -82,6 +83,7 @@ private:
 	float turnFirstRotationY_ = 0.0f;
 	float turnTimer_ = 0.0f;
 	MapChipField* mapChipField_ = nullptr;
+	bool isDead_ = false;
 
 	void InputMove();
 	void CheckMapCollision(CollisionMapInfo& info);
