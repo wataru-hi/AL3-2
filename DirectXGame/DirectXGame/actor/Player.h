@@ -49,6 +49,7 @@ public:
 	const WorldTransform& GetWorldTransform() const { return worldTransform_; }
 	const Vector3& GetVelocity() const { return velocity_; }
 	AABB getAABB();
+	const Vector3& GetPosition() const {return worldTransform_.translation_; }
 
 private:
 	static inline const float kAcceleration = 0.1f;

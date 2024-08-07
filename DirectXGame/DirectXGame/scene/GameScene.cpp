@@ -17,6 +17,8 @@ GameScene::~GameScene() {
 	// enemies_ をクリア
 	enemies_.clear();
 
+	delete deathParticles_;
+
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
 		for (WorldTransform*& worldTransformBlock : worldTransformBlockLine) {
 			delete worldTransformBlock;
@@ -48,6 +50,7 @@ void GameScene::Initialize() {
 	modelEnemy_ = Model::CreateFromOBJ("enemy");
 	modelBlock_ = Model::CreateFromOBJ("block");
 	modelSkydome_ = Model::CreateFromOBJ("SkyDome", true);
+	modelDethParticles_ = Model::CreateFromOBJ("deathParticle", true);
 
 	// マップチップフィールドの生成
 	mapChipField_ = new MapChipField;
@@ -74,6 +77,9 @@ void GameScene::Initialize() {
 
 		enemies_.push_back(newEnemy);
 	}
+
+	deathParticles_ = new DeathParticles;
+	deathParticles_->Initialize(modelDethParticles_, &viewProjection_, player_->GetPosition());
 
 	viewProjection_.Initialize();
 
@@ -104,6 +110,11 @@ void GameScene::Update() {
 	for (Enemy* enemy : enemies_)
 	{
 		enemy->Update();
+	}
+
+	if (deathParticles_ != nullptr)
+	{
+		deathParticles_->Update();
 	}
 
 	//すべての当たり判定を行う
@@ -183,6 +194,11 @@ void GameScene::Draw() {
 	for (Enemy* enemy : enemies_)
 	{
 		enemy->Draw();
+	}
+
+	if(deathParticles_ != nullptr)
+	{
+		deathParticles_->Draw();
 	}
 
 	// 3Dオブジェクト描画後処理

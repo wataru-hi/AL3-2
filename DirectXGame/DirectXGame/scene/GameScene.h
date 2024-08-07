@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Sprite.h"
+#include "DeathParticles.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include <vector>
@@ -61,11 +62,14 @@ private: // メンバ変数
 	Player* player_ = nullptr;
 	//敵キャラ
 	std::list<Enemy*> enemies_;
+	//死亡時パーティクル
+	DeathParticles* deathParticles_ = nullptr;
 	// モデルデータ
 	Model* modelPlayer_ = nullptr;
 	Model* modelEnemy_ = nullptr;
 	Model* modelBlock_ = nullptr;
 	Model* modelSkydome_ = nullptr;
+	Model* modelDethParticles_ = nullptr;
 	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
 	WorldTransform worldTransformSkydome_;
 	// デバッグカメラ
