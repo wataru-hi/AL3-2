@@ -48,6 +48,7 @@ public:
 	// getter
 	const WorldTransform& GetWorldTransform() const { return worldTransform_; }
 	const Vector3& GetVelocity() const { return velocity_; }
+	const Vector3& GetPosition() const { return worldTransform_.translation_; }
 	AABB getAABB();
 
 private:

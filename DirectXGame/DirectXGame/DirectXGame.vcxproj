@@ -113,6 +113,7 @@
     <ClCompile Include="actor\Player.cpp" />
     <ClCompile Include="base\DirectXCommon.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
+    <ClCompile Include="DeathParticles.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math\MathUtilityForText.cpp" />
     <ClCompile Include="object\MapChipField.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="math\Vector3.h" />
     <ClInclude Include="math\Vector4.h" />
     <ClInclude Include="object\MapChipField.h" />
+    <ClInclude Include="Particle\DeathParticles.h" />
     <ClInclude Include="scene\GameScene.h" />
   </ItemGroup>
   <ItemGroup>

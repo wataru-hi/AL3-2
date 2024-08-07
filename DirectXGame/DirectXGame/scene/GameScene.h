@@ -9,6 +9,7 @@
 #include "Model.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "DeathParticles.h"
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
@@ -66,6 +67,7 @@ private: // メンバ変数
 	Model* modelEnemy_ = nullptr;
 	Model* modelBlock_ = nullptr;
 	Model* modelSkydome_ = nullptr;
+	Model* modelDeathParticle_ = nullptr;
 	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
 	WorldTransform worldTransformSkydome_;
 	// デバッグカメラ
@@ -74,6 +76,8 @@ private: // メンバ変数
 	bool isDebugCameraActive_ = false;
 	MapChipField* mapChipField_;
 	CameraController* cameraController = nullptr;
+	DeathParticles* deathparticles_ = nullptr;
+
 
 	void GenerateBlocks();
 	void CheckAllCollisions();

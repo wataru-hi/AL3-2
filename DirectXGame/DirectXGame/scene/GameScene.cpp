@@ -29,6 +29,7 @@ GameScene::~GameScene() {
 	delete modelSkydome_;
 	delete mapChipField_;
 	delete cameraController;
+	delete deathparticles_;
 }
 
 void GameScene::Initialize() {
@@ -48,6 +49,7 @@ void GameScene::Initialize() {
 	modelEnemy_ = Model::CreateFromOBJ("enemy");
 	modelBlock_ = Model::CreateFromOBJ("block");
 	modelSkydome_ = Model::CreateFromOBJ("SkyDome", true);
+	modelDeathParticle_ = Model::CreateFromOBJ("deathParticle");
 
 	// マップチップフィールドの生成
 	mapChipField_ = new MapChipField;
@@ -74,6 +76,9 @@ void GameScene::Initialize() {
 
 		enemies_.push_back(newEnemy);
 	}
+
+	deathparticles_ = new DeathParticles;
+	deathparticles_->Initialize(modelDeathParticle_, &viewProjection_, player_->GetPosition());
 
 	viewProjection_.Initialize();
 
@@ -108,6 +113,11 @@ void GameScene::Update() {
 
 	//すべての当たり判定を行う
 	CheckAllCollisions();
+
+	if(deathparticles_)
+	{
+		deathparticles_->Update();
+	}
 
 #ifdef _DEBUG
 	if (input_->TriggerKey(DIK_0)) {
@@ -183,6 +193,11 @@ void GameScene::Draw() {
 	for (Enemy* enemy : enemies_)
 	{
 		enemy->Draw();
+	}
+
+	if (deathparticles_) 
+	{
+		deathparticles_->Draw();
 	}
 
 	// 3Dオブジェクト描画後処理

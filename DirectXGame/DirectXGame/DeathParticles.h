@@ -1,0 +1,30 @@
+#pragma once
+
+#include "Model.h"
+#include "ViewProjection.h"
+#include "WorldTransform.h"
+
+/// <summary>
+/// デス演出用パーティクル
+/// </summary>
+class DeathParticles
+{public:
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	void Initialize(Model* model, ViewProjection* viewProjection, const Vector3& position);
+
+	void Update();
+
+	void Draw();
+
+private:
+	static inline const uint32_t kNumParticles = 8; 
+
+	Model* model_ = nullptr;
+	//WorldTransform worldTransform_;
+	ViewProjection* viewProjection_ = nullptr;
+
+	std::array<WorldTransform, kNumParticles> worldTransforms_;
+};
+
