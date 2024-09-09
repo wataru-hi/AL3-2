@@ -8,6 +8,7 @@
 enum class MapChipType {
 	kBlank, // 空白
 	kBlock, // ブロック
+	Error = 13,//壊せる
 };
 
 struct MapChipData {

@@ -54,7 +54,7 @@ void GameScene::Initialize() {
 
 	// マップチップフィールドの生成
 	mapChipField_ = new MapChipField;
-	mapChipField_->LoadMapChipCsv("Resources/blocks.csv");
+	mapChipField_->LoadMapChipCsv("Resources/blockTest.csv");
 
 	// 自キャラの生成
 	player_ = new Player();
@@ -63,15 +63,9 @@ void GameScene::Initialize() {
 	player_->Initialize(modelPlayer_, &viewProjection_, playerPosition);
 	player_->SetMapChipField(mapChipField_);
 
-	////敵キャラの生成(一体のみ
-	// enemy_ = new Enemy();
-	////初期化
-	// Vector3 enemyPosition = mapChipField_->GetMapChipPositionByIndex(10, 18);
-	// enemy_->Initialize(modelEnemy_, &viewProjection_, enemyPosition);
-
-	for (int32_t i = 0; i < 4; ++i) {
+	for (int32_t i = 0; i < 42; ++i) {
 		Enemy* newEnemy = new Enemy();
-		Vector3 enemyPosition = mapChipField_->GetMapChipPositionByIndex(12 + i, 16);
+		Vector3 enemyPosition = mapChipField_->GetMapChipPositionByIndex(12 + i, 0);
 		newEnemy->Initialize(modelEnemy_, &viewProjection_, enemyPosition);
 
 		enemies_.push_back(newEnemy);
@@ -177,51 +171,6 @@ void GameScene::Update() {
 		break;
 	}
 
-//	worldTransformSkydome_.UpdateMatrix();
-//
-//	// 自キャラの更新
-//	player_->Update();
-//
-//	for (Enemy* enemy : enemies_) {
-//		enemy->Update();
-//	}
-//
-//	// すべての当たり判定を行う
-//	CheckAllCollisions();
-//
-//	if (deathparticles_) {
-//		deathparticles_->Update();
-//	}
-//
-//#ifdef _DEBUG
-//	if (input_->TriggerKey(DIK_0)) {
-//		// フラグをトグル
-//		isDebugCameraActive_ = !isDebugCameraActive_;
-//	}
-//#endif
-//	if (isDebugCameraActive_) {
-//		debugCamera_->Update();
-//		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
-//		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
-//		// ビュープロジェクションの転送
-//		viewProjection_.TransferMatrix();
-//	} else {
-//		viewProjection_.matView = cameraController->GetViewProjection().matView;
-//		viewProjection_.matProjection = cameraController->GetViewProjection().matProjection;
-//		// ビュープロジェクションの転送
-//		viewProjection_.TransferMatrix();
-//	}
-//
-//	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
-//		for (WorldTransform*& worldTransformBlock : worldTransformBlockLine) {
-//			if (!worldTransformBlock)
-//				continue;
-//
-//			worldTransformBlock->UpdateMatrix();
-//		}
-//	}
-//
-//	cameraController->Update();
 }
 
 void GameScene::Draw() {
@@ -305,7 +254,7 @@ void GameScene::GenerateBlocks() {
 
 		for (uint32_t j = 0; j < numBlockHorizontal; ++j) {
 
-			if (mapChipField_->GetMapChipTypeByIndex(j, i) == MapChipType::kBlock) {
+			if (mapChipField_->GetMapChipTypeByIndex(j, i) == MapChipType::kBlock || mapChipField_->GetMapChipTypeByIndex(j, i) == MapChipType::Error) {
 				WorldTransform* worldTransform = new WorldTransform();
 				worldTransform->Initialize();
 				worldTransformBlocks_[i][j] = worldTransform;
