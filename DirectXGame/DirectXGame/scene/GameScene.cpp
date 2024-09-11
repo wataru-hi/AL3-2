@@ -54,7 +54,7 @@ void GameScene::Initialize() {
 
 	// マップチップフィールドの生成
 	mapChipField_ = new MapChipField;
-	mapChipField_->LoadMapChipCsv("Resources/blocks.csv");
+	mapChipField_->LoadMapChipCsv("Resources/switchTest.csv");
 
 	// 自キャラの生成
 	player_ = new Player();
@@ -305,7 +305,7 @@ void GameScene::GenerateBlocks() {
 
 		for (uint32_t j = 0; j < numBlockHorizontal; ++j) {
 
-			if (mapChipField_->GetMapChipTypeByIndex(j, i) == MapChipType::kBlock) {
+			if (mapChipField_->GetMapChipTypeByIndex(j, i) != MapChipType::kBlank) {
 				WorldTransform* worldTransform = new WorldTransform();
 				worldTransform->Initialize();
 				worldTransformBlocks_[i][j] = worldTransform;

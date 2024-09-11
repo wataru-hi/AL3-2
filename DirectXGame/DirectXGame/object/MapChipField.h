@@ -8,6 +8,8 @@
 enum class MapChipType {
 	kBlank, // 空白
 	kBlock, // ブロック
+	Switch, //スイッチ
+	Door,	//ドア
 };
 
 struct MapChipData {
