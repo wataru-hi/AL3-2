@@ -4,6 +4,8 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
+#include "MapChipField.h"
+
 #include "AABB.h"
 
 class MapChipField;
@@ -84,6 +86,7 @@ private:
 	float turnTimer_ = 0.0f;
 	MapChipField* mapChipField_ = nullptr;
 	bool isDead_ = false;
+	bool isPushSwitch = false;
 
 	void InputMove();
 	void CheckMapCollision(CollisionMapInfo& info);
@@ -95,4 +98,7 @@ private:
 	void AnimateTurn();
 
 	Vector3 CornerPosition(const Vector3& center, Corner corner);
+
+	bool CollisionBlocks(MapChipType MapChipTile);
+	bool offCollisionBlocks(MapChipType MapChipTile);
 };

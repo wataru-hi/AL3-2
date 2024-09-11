@@ -5,9 +5,44 @@
 #include "Input.h"
 #include "MapChipField.h"
 #include "MathUtilityForText.h"
+
+#include "ImGuiManager.h"
+
 #include <algorithm>
 #include <cassert>
 #include <numbers>
+
+bool Player::CollisionBlocks(MapChipType MapChipTile)
+{
+	if (MapChipTile == MapChipType::kBlank || MapChipTile == MapChipType::Switch)
+	{
+		return false;
+	}
+	if (isPushSwitch)
+	{
+		if (MapChipTile == MapChipType::Door)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+bool Player::offCollisionBlocks(MapChipType MapChipTile)
+{
+	if (MapChipTile == MapChipType::kBlank || MapChipTile == MapChipType::Switch)
+	{
+		return true;
+	}
+	if (isPushSwitch)
+	{
+		if (MapChipTile == MapChipType::Door)
+		{
+			return true;
+		}
+	}
+	return false;
+}
 
 void Player::Initialize(Model* model, ViewProjection* viewProjection, const Vector3& position) 
 {
@@ -59,6 +94,13 @@ void Player::Update() {
 
 	// 行列計算
 	worldTransform_.UpdateMatrix();
+
+	ImGui::Begin("player");
+	if (isPushSwitch)
+	{
+		ImGui::Text("on");
+	}
+	ImGui::End();
 }
 
 void Player::Draw() { model_->Draw(worldTransform_, *viewProjection_); }
@@ -167,15 +209,24 @@ void Player::CheckMapCollisionUp(CollisionMapInfo& info) {
 	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kLeftTop]);
 	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
 	mapChipTypeNext = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex + 1);
-	if (mapChipType != MapChipType::kBlank && mapChipTypeNext != MapChipType::kBlock) {
+	if (CollisionBlocks(mapChipType) && offCollisionBlocks(mapChipTypeNext)) {
 		hit = true;
+	}
+	if (mapChipType == MapChipType::Switch)
+	{
+		isPushSwitch = true;
 	}
 	// 右上点の判定
 	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kRightTop]);
 	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
 	mapChipTypeNext = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex + 1);
-	if (mapChipType != MapChipType::kBlank && mapChipTypeNext != MapChipType::kBlock) {
+	if (CollisionBlocks(mapChipType) && offCollisionBlocks(mapChipTypeNext)) {
 		hit = true;
+	}
+
+	if (mapChipType == MapChipType::Switch)
+	{
+		isPushSwitch = true;
 	}
 
 	// ブロックにヒット？
@@ -214,15 +265,24 @@ void Player::CheckMapCollisionDown(CollisionMapInfo& info) {
 	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kLeftBottom]);
 	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
 	mapChipTypeNext = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex - 1);
-	if (mapChipType != MapChipType::kBlank && mapChipTypeNext != MapChipType::kBlock) {
+	if (CollisionBlocks(mapChipType) && offCollisionBlocks(mapChipTypeNext)) {
 		hit = true;
+	}
+	if (mapChipType == MapChipType::Switch)
+	{
+		isPushSwitch = true;
 	}
 	// 右下点の判定
 	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kRightBottom]);
 	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
 	mapChipTypeNext = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex - 1);
-	if (mapChipType != MapChipType::kBlank && mapChipTypeNext != MapChipType::kBlock) {
+	if (CollisionBlocks(mapChipType) && offCollisionBlocks(mapChipTypeNext)) {
 		hit = true;
+	}
+
+	if (mapChipType == MapChipType::Switch)
+	{
+		isPushSwitch = true;
 	}
 
 	// ブロックにヒット？
@@ -261,15 +321,25 @@ void Player::CheckMapCollisionRight(CollisionMapInfo& info) {
 	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kRightTop]);
 	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
 	mapChipTypeNext = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex - 1, indexSet.yIndex);
-	if (mapChipType != MapChipType::kBlank && mapChipTypeNext != MapChipType::kBlock) {
+	if (CollisionBlocks(mapChipType) && offCollisionBlocks(mapChipTypeNext))  {
 		hit = true;
+	}
+
+	if (mapChipType == MapChipType::Switch)
+	{
+		isPushSwitch = true;
 	}
 	// 右下点の判定
 	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kRightBottom]);
 	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
 	mapChipTypeNext = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex - 1, indexSet.yIndex);
-	if (mapChipType != MapChipType::kBlank && mapChipTypeNext != MapChipType::kBlock) {
+	if (CollisionBlocks(mapChipType) && offCollisionBlocks(mapChipTypeNext))  {
 		hit = true;
+	}
+
+	if (mapChipType == MapChipType::Switch)
+	{
+		isPushSwitch = true;
 	}
 
 	// ブロックにヒット？
@@ -308,15 +378,23 @@ void Player::CheckMapCollisionLeft(CollisionMapInfo& info) {
 	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kLeftTop]);
 	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
 	mapChipTypeNext = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex + 1, indexSet.yIndex);
-	if (mapChipType != MapChipType::kBlank && mapChipTypeNext != MapChipType::kBlock) {
+	if (CollisionBlocks(mapChipType) && offCollisionBlocks(mapChipTypeNext))  {
 		hit = true;
+	}
+	if (mapChipType == MapChipType::Switch)
+	{
+		isPushSwitch = true;
 	}
 	// 左下点の判定
 	indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kLeftBottom]);
 	mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
 	mapChipTypeNext = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex + 1, indexSet.yIndex);
-	if (mapChipType != MapChipType::kBlank && mapChipTypeNext != MapChipType::kBlock) {
+	if (CollisionBlocks(mapChipType) && offCollisionBlocks(mapChipTypeNext))  {
 		hit = true;
+	}
+	if (mapChipType == MapChipType::Switch)
+	{
+		isPushSwitch = true;
 	}
 
 	// ブロックにヒット？
@@ -354,7 +432,7 @@ void Player::UpdateOnGround(const CollisionMapInfo& info) {
 			MapChipField::IndexSet indexSet;
 			indexSet = mapChipField_->GetMapChipIndexSetByPosition(positionsNew[kLeftBottom] + Vector3(0, -kGroundSearchHeight, 0));
 			mapChipType = mapChipField_->GetMapChipTypeByIndex(indexSet.xIndex, indexSet.yIndex);
-			if (mapChipType != MapChipType::kBlank) {
+			if ((CollisionBlocks(mapChipType))) {
 				ground = true;
 			}
 			// 右下点の判定
@@ -380,6 +458,7 @@ void Player::UpdateOnGround(const CollisionMapInfo& info) {
 		}
 	}
 }
+
 void Player::AnimateTurn() {
 	if (turnTimer_ > 0.0f) {
 		// タイマーを進める
