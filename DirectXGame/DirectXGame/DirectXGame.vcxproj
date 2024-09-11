@@ -113,6 +113,7 @@
     <ClCompile Include="actor\Player.cpp" />
     <ClCompile Include="base\DirectXCommon.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
+    <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="DeathParticles.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math\MathUtilityForText.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="base\StringUtility.h" />
     <ClInclude Include="base\TextureManager.h" />
     <ClInclude Include="base\WinApp.h" />
+    <ClInclude Include="Bomb.h" />
     <ClInclude Include="input\Input.h" />
     <ClInclude Include="math\MathUtilityForText.h" />
     <ClInclude Include="math\Matrix4x4.h" />

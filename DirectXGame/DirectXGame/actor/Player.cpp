@@ -9,8 +9,9 @@
 #include <cassert>
 #include <numbers>
 
-void Player::Initialize(Model* model, ViewProjection* viewProjection, const Vector3& position) 
-{
+#include "ImGuiManager.h"
+
+void Player::Initialize(Model* model, ViewProjection* viewProjection, const Vector3& position) {
 
 	// NULLポインタチェック
 	assert(model);
@@ -22,6 +23,10 @@ void Player::Initialize(Model* model, ViewProjection* viewProjection, const Vect
 	worldTransform_.translation_ = position;
 	worldTransform_.rotation_.y = std::numbers::pi_v<float> / 2.0f;
 	viewProjection_ = viewProjection;
+
+	bomb_ = new Bomb();
+
+	bomb_->Initialize(model_, viewProjection_, worldTransform_.translation_);
 }
 
 void Player::Update() {
@@ -41,6 +46,9 @@ void Player::Update() {
 	// 移動
 	worldTransform_.translation_ += collisionMapInfo.move;
 
+	BombPut();
+	bomb_->Update();
+
 	// 天井接触による落下開始
 	if (collisionMapInfo.ceiling) {
 		velocity_.y = 0;
@@ -59,21 +67,30 @@ void Player::Update() {
 
 	// 行列計算
 	worldTransform_.UpdateMatrix();
+
+	ImGui::Begin("Player");
+	ImGui::Text("%.3f", bombCoolTimer_);
+	ImGui::Text("%f,%f,&f", worldTransform_.translation_.x, worldTransform_.translation_.y, worldTransform_.translation_.z);
+	if (bombCheck) {
+		ImGui::Text("mombCheck");
+	}
+	ImGui::End();
 }
 
-void Player::Draw() { model_->Draw(worldTransform_, *viewProjection_); }
+void Player::Draw() {
+	bomb_->Draw();
+	model_->Draw(worldTransform_, *viewProjection_);
+}
 
-void Player::OnCollision(const Enemy* enemy)
-{
+void Player::OnCollision(const Enemy* enemy) {
 	(void)enemy;
 
 	velocity_ += {0.0f, 1.0f, 0.0f};
 	isDead_ = true;
 }
 
-AABB Player::getAABB()
-{
-	Vector3 worldPos  = GetWorldPosition(worldTransform_.matWorld_);
+AABB Player::getAABB() {
+	Vector3 worldPos = GetWorldPosition(worldTransform_.matWorld_);
 
 	AABB aabb;
 
@@ -391,6 +408,30 @@ void Player::AnimateTurn() {
 		float destinationRotationY = destinationRotationYTable[static_cast<uint32_t>(lrDirection_)];
 
 		worldTransform_.rotation_.y = EaseInOut(destinationRotationY, turnFirstRotationY_, turnTimer_ / kTimeTurn);
+	}
+}
+
+void Player::BombPut() {
+	if (bombCoolTimer_ > 0.0f) {
+		bombCoolTimer_ -= 1.0f / 60.0f;
+		
+		if (bombCheck)
+		{
+			bombCheck = false;
+		}
+
+		if (bombCoolTimer_ < 2.0f && bomb_->isEx()) {
+			bombCheck = true;
+			exPos = bomb_->GetExPos();
+		}
+
+	} else if (bombCoolTimer_ == 0.0f) {
+		if (Input::GetInstance()->PushKey(DIK_Q)) {
+			bombCoolTimer_ = BombCooltime;
+			bomb_->setBomb(worldTransform_.translation_);
+		}
+	} else if (bombCoolTimer_ < 0.0f) {
+		bombCoolTimer_ = 0.0f;
 	}
 }
 

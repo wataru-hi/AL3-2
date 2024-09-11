@@ -91,6 +91,25 @@ MapChipField::IndexSet MapChipField::GetMapChipIndexSetByPosition(const Vector3&
 	return indexSet;
 }
 
+void MapChipField::BreakBlock(Vector3 position)
+{
+	IndexSet Pos = GetMapChipIndexSetByPosition(position);
+
+	for (uint32_t y = (uint32_t)1; y < (uint32_t)4; ++y)
+	{
+		for (uint32_t x = (uint32_t)1; x < (uint32_t)4; ++x)
+		{
+			IndexSet breakPos;
+			breakPos.xIndex = Pos.xIndex - x;
+			breakPos.yIndex = Pos.yIndex - y;
+			mapChipData_.data[breakPos.yIndex][breakPos.xIndex] = MapChipType::kBlank;
+		}
+	}
+
+
+	//mapChipData_.data[Pos.yIndex][Pos.xIndex] = MapChipType::kBlank;
+}
+
 MapChipField::Rect MapChipField::GetRectByIndex(uint32_t xIndex, uint32_t yIndex) {
 	Vector3 center = GetMapChipPositionByIndex(xIndex, yIndex);
 

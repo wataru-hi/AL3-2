@@ -41,6 +41,9 @@ public:
 	MapChipType GetMapChipTypeByPosition(const Vector3& position);
 	IndexSet GetMapChipIndexSetByPosition(const Vector3& position);
 
+	void BreakBlock(Vector3 position);
+
+
 	uint32_t GetNumBlockVirtical() const { return kNumBlockVirtical; }
 	uint32_t GetNumBlockHorizontal() const { return kNumBlockHorizontal; }
 

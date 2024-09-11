@@ -92,4 +92,6 @@ private: // メンバ変数
 	void GenerateBlocks();
 	void CheckAllCollisions();
 	void ChangePhase();
+
+	Vector3 ExPos;
 };

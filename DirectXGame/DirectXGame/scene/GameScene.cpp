@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "MathUtilityForText.h"
 #include "TextureManager.h"
+#include "ImGuiManager.h"
 #include <cassert>
 #include <cstdint>
 
@@ -100,6 +101,12 @@ void GameScene::Update() {
 		// 自キャラの更新
 		player_->Update();
 
+		if (player_->IsEx() == true)
+		{
+			ExPos = player_->GetExPos();
+			mapChipField_->BreakBlock(ExPos);
+		}
+
 		for (Enemy* enemy : enemies_) {
 			enemy->Update();
 		}
@@ -171,6 +178,9 @@ void GameScene::Update() {
 		break;
 	}
 
+	ImGui::Begin("gameScene");
+	ImGui::Text("%f, %f, %f", ExPos.x, ExPos.y, ExPos.z);
+	ImGui::End();
 }
 
 void GameScene::Draw() {

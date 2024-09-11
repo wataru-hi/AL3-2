@@ -4,6 +4,8 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
+#include "Bomb.h"
+
 #include "AABB.h"
 
 class MapChipField;
@@ -51,6 +53,8 @@ public:
 	const Vector3& GetPosition() const { return worldTransform_.translation_; }
 	AABB getAABB();
 	bool IsDead() const { return isDead_; }
+	bool IsEx() const { return bombCheck; }
+	Vector3 GetExPos() { return exPos; }
 
 private:
 	static inline const float kAcceleration = 0.1f;
@@ -66,6 +70,7 @@ private:
 	static inline const float kHeight = 0.8f;
 	static inline const float kBlank = 0.04f;
 	static inline const float kGroundSearchHeight = 0.06f;
+	static inline const float BombCooltime = 3.0f;
 
 	struct CollisionMapInfo {
 		bool ceiling = false;
@@ -84,6 +89,10 @@ private:
 	float turnTimer_ = 0.0f;
 	MapChipField* mapChipField_ = nullptr;
 	bool isDead_ = false;
+	float bombCoolTimer_ = 0.0f;
+	Bomb* bomb_ = nullptr;
+	Vector3 exPos = {};
+	bool bombCheck = false;
 
 	void InputMove();
 	void CheckMapCollision(CollisionMapInfo& info);
@@ -93,6 +102,7 @@ private:
 	void CheckMapCollisionLeft(CollisionMapInfo& info);
 	void UpdateOnGround(const CollisionMapInfo& info);
 	void AnimateTurn();
+	void BombPut();
 
 	Vector3 CornerPosition(const Vector3& center, Corner corner);
 };
