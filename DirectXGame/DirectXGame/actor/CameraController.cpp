@@ -1,6 +1,8 @@
 #include "CameraController.h"
 #include "MathUtilityForText.h"
 #include "Player.h"
+
+#include "ImGuiManager.h"
 #include <algorithm>
 
 void CameraController::Initialize() { viewProjection_.Initialize(); }

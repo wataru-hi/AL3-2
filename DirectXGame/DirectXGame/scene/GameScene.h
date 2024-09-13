@@ -88,6 +88,8 @@ private: // メンバ変数
 	DeathParticles* deathparticles_ = nullptr;
 	Phase phase_;
 	bool finished = false;
+	uint32_t voiceHandle_ = 0;
+	uint32_t soundHandle_ = 0;
 
 	void GenerateBlocks();
 	void CheckAllCollisions();

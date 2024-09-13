@@ -87,6 +87,10 @@ void GameScene::Initialize() {
 
 	GenerateBlocks();
 
+	//音声再生
+	soundHandle_ = audio_->LoadWave("royalPalaceExploration.wav");
+	voiceHandle_ = audio_->PlayWave(soundHandle_, true);
+
 	cameraController = new CameraController;
 	cameraController->Initialize();
 	cameraController->SetTarget(player_);
