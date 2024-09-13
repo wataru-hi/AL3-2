@@ -37,6 +37,8 @@ public:
 
 	void LoadMapChipCsv(const std::string& filePath);
 
+	void MapChipdelete(const Vector3 deletePosition);
+
 	Vector3 GetMapChipPositionByIndex(uint32_t xIndex, uint32_t yIndex);
 	MapChipType GetMapChipTypeByIndex(uint32_t xIndex, uint32_t yIndex);
 	MapChipType GetMapChipTypeByPosition(const Vector3& position);

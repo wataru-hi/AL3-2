@@ -101,6 +101,8 @@ void Player::Update() {
 		ImGui::Text("on");
 	}
 	ImGui::End();
+
+		
 }
 
 void Player::Draw() { model_->Draw(worldTransform_, *viewProjection_); }

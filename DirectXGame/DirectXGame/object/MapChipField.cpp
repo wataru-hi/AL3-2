@@ -65,6 +65,16 @@ void MapChipField::LoadMapChipCsv(const std::string& filePath) {
 	}
 }
 
+void MapChipField::MapChipdelete(Vector3 Position)
+{
+	IndexSet deleteIndex = GetMapChipIndexSetByPosition(Position);
+
+	if (mapChipData_.data[deleteIndex.yIndex][deleteIndex.xIndex] == MapChipType::Door)
+	{
+		mapChipData_.data[deleteIndex.yIndex][deleteIndex.xIndex] = MapChipType::kBlank;
+	}
+}
+
 Vector3 MapChipField::GetMapChipPositionByIndex(uint32_t xIndex, uint32_t yIndex) { return Vector3(kBlockWidth * xIndex, kBlockHeight * (kNumBlockVirtical - 1 - yIndex), 0); }
 
 MapChipType MapChipField::GetMapChipTypeByIndex(uint32_t xIndex, uint32_t yIndex) {
