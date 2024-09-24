@@ -63,12 +63,6 @@ void GameScene::Initialize() {
 	player_->Initialize(modelPlayer_, &viewProjection_, playerPosition);
 	player_->SetMapChipField(mapChipField_);
 
-	////敵キャラの生成(一体のみ
-	// enemy_ = new Enemy();
-	////初期化
-	// Vector3 enemyPosition = mapChipField_->GetMapChipPositionByIndex(10, 18);
-	// enemy_->Initialize(modelEnemy_, &viewProjection_, enemyPosition);
-
 	for (int32_t i = 0; i < 4; ++i) {
 		Enemy* newEnemy = new Enemy();
 		Vector3 enemyPosition = mapChipField_->GetMapChipPositionByIndex(12 + i, 16);
@@ -84,7 +78,7 @@ void GameScene::Initialize() {
 
 	// 天球の初期化
 	worldTransformSkydome_.Initialize();
-
+	
 	GenerateBlocks();
 
 	//音声再生

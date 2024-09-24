@@ -2,23 +2,22 @@
 
 #include "Audio.h"
 #include "CameraController.h"
+#include "DeathParticles.h"
 #include "DebugCamera.h"
 #include "DirectXCommon.h"
+#include "Enemy.h"
 #include "Input.h"
 #include "MapChipField.h"
 #include "Model.h"
 #include "Player.h"
-#include "Enemy.h"
-#include "DeathParticles.h"
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include <vector>
 
-enum class Phase 
-{
-	kPlay,	//ゲームプレイ
-	kDeath,	//デス演出
+enum class Phase {
+	kPlay,  // ゲームプレイ
+	kDeath, // デス演出
 };
 
 /// <summary>
@@ -52,7 +51,7 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
-//getter
+	// getter
 	bool isFinished() const { return finished; }
 
 private: // メンバ変数
@@ -69,7 +68,7 @@ private: // メンバ変数
 	uint32_t textureHandle_ = 0u;
 	// 自キャラ
 	Player* player_ = nullptr;
-	//敵キャラ
+	// 敵キャラ
 	std::list<Enemy*> enemies_;
 	// モデルデータ
 	Model* modelPlayer_ = nullptr;
